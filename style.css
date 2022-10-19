@@ -1,0 +1,53 @@
+h1 {
+  text-align: center;
+  color: midnightblue;
+}
+table {
+  width: 800px;
+
+  margin: 50px auto;
+}
+td {
+  border: 2px solid gray;
+}
+thead {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+.game-row {
+  width: 100%;
+  font-size: 20px;
+
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.game-row:nth-child(odd) {
+  background-color: palegoldenrod;
+}
+.game-row:nth-child(even) {
+  background-color: midnightblue;
+  color: white;
+}
+
+.cell {
+  position: relative;
+}
+.span {
+  float: right;
+  padding-right: 30%;
+}
+.top {
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  background-color: palegoldenrod;
+}
+li {
+  display: inline;
+  margin: 30px;
+  font-size: 1.2rem;
+}
