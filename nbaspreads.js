@@ -1,13 +1,11 @@
-const table = document.querySelector("table");
-
-const options = {
+const nbaSpreadOptions = {
   method: "GET",
   url: "https://odds.p.rapidapi.com/v1/odds",
   params: {
     region: "us",
-    sport: "icehockey_nhl",
+    sport: "basketball_nba",
     oddsFormat: "american",
-    market: "h2h",
+    market: "spreads",
     dateFormat: "iso",
   },
   headers: {
@@ -20,16 +18,17 @@ let sportsbooks = [
   "fanduel",
   "draftkings",
   "williamhill_us",
-  "circasports",
+  "bovada",
   "betmgm",
 ];
 sportsbooks.sort();
-console.log(sportsbooks);
 
-const asyncFunc = async () => {
-  const response = await axios.request(options);
+const asyncSpreads = async (options) => {
+  let response = await axios.request(options);
+  console.log(response);
   const gameArray = await response.data.data;
   console.log(gameArray);
+
   // const { sites, teams, home_team: h } = gameArray[0];
   for (let game of gameArray) {
     const { sites, teams, home_team: h } = game;
@@ -56,8 +55,8 @@ const asyncFunc = async () => {
       let newObj2 = {};
 
       if (site.hasOwnProperty("odds")) {
-        newObj[newKey] = site.odds.h2h[0];
-        newObj2[newKey] = site.odds.h2h[1];
+        newObj[newKey] = site.odds.spreads.points[0];
+        newObj2[newKey] = site.odds.spreads.points[1];
       } else {
         newObj[newKey] = "";
         newObj2[newKey] = "";
@@ -80,12 +79,25 @@ const asyncFunc = async () => {
 function createTopRow(sortedArr) {
   const thead = document.querySelector("thead");
   let row = thead.insertRow();
-  row.insertCell(0);
+  let firstCell = row.insertCell(0);
+  firstCell.classList.add("first");
   for (let element of sortedArr) {
     if (element === "williamhill_us") {
-      element = "william";
+      element = "WLH";
     }
-    row.innerHTML += `<td class="top">${element}</td>`;
+    if (element === "draftkings") {
+      element = "DRK"
+    }
+    if (element === "betmgm") {
+      element = "BMG"
+    }
+    if (element === "fanduel") {
+      element = "FND"
+    }
+    if (element === "bovada") {
+      element = "BOV"
+    }
+    row.innerHTML += `<td class="top"><span class="top-span">${element}</span></td>`;
   }
 }
 createTopRow(sportsbooks);
@@ -97,24 +109,24 @@ function createMain(arr) {
   let gameRow = tbody.insertRow();
   gameRow.classList.add("game-row");
   gameRow.innerHTML = `<td>${arr[0][0]} <br> ${arr[1][0]}</td>
-      
-      <td><span>${Object.values(arr[0][1])}</span> <br> <span>${Object.values(
+    
+    <td><span>${Object.values(arr[0][1])}</span> <br> <span>${Object.values(
     arr[1][1]
   )}</span></td>
-      <td><span>${Object.values(arr[0][2])}</span> <br> <span>${Object.values(
+    <td><span>${Object.values(arr[0][2])}</span> <br> <span>${Object.values(
     arr[1][2]
   )}</span></td>
-      <td><span>${Object.values(arr[0][3])}</span> <br> <span>${Object.values(
+    <td><span>${Object.values(arr[0][3])}</span> <br> <span>${Object.values(
     arr[1][3]
   )}</span></td>
-      <td><span>${Object.values(arr[0][4])}</span> <br> <span>${Object.values(
+    <td><span>${Object.values(arr[0][4])}</span> <br> <span>${Object.values(
     arr[1][4]
   )}</span></td>
-      <td><span>${Object.values(arr[0][5])}</span> <br> <span>${Object.values(
+    <td><span>${Object.values(arr[0][5])}</span> <br> <span>${Object.values(
     arr[1][5]
   )}</span></td>
-    
-      `;
+  
+    `;
   const tds = document.querySelectorAll("td");
   for (let td of tds) {
     td.classList.add("cell");
@@ -125,4 +137,4 @@ function createMain(arr) {
   }
 }
 
-asyncFunc();
+asyncSpreads(nbaSpreadOptions);

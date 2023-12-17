@@ -1,4 +1,4 @@
-const options = {
+const nflSpreadOptions = {
   method: "GET",
   url: "https://odds.p.rapidapi.com/v1/odds",
   params: {
@@ -18,12 +18,12 @@ let sportsbooks = [
   "fanduel",
   "draftkings",
   "williamhill_us",
-  "circasports",
+  "bovada",
   "betmgm",
 ];
 sportsbooks.sort();
 
-const asyncSpreads = async () => {
+const asyncSpreads = async (options) => {
   let response = await axios.request(options);
   console.log(response);
   const gameArray = await response.data.data;
@@ -79,12 +79,25 @@ const asyncSpreads = async () => {
 function createTopRow(sortedArr) {
   const thead = document.querySelector("thead");
   let row = thead.insertRow();
-  row.insertCell(0);
+  let firstCell = row.insertCell(0);
+  firstCell.classList.add("first");
   for (let element of sortedArr) {
     if (element === "williamhill_us") {
-      element = "william";
+      element = "WLH";
     }
-    row.innerHTML += `<td class="top">${element}</td>`;
+    if (element === "draftkings") {
+      element = "DRK"
+    }
+    if (element === "betmgm") {
+      element = "BMG"
+    }
+    if (element === "fanduel") {
+      element = "FND"
+    }
+    if (element === "bovada") {
+      element = "BOV"
+    }
+    row.innerHTML += `<td class="top"><span class="top-span">${element}</span></td>`;
   }
 }
 createTopRow(sportsbooks);
@@ -124,4 +137,4 @@ function createMain(arr) {
   }
 }
 
-asyncSpreads();
+asyncSpreads(nflSpreadOptions);

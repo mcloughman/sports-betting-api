@@ -1,11 +1,11 @@
 const table = document.querySelector("table");
 
-const hockeyOptions = {
+const nflMoneyLineOptions = {
   method: "GET",
   url: "https://odds.p.rapidapi.com/v1/odds",
   params: {
     region: "us",
-    sport: "icehockey_nhl",
+    sport: "americanfootball_nfl",
     oddsFormat: "american",
     market: "h2h",
     dateFormat: "iso",
@@ -28,9 +28,5 @@ sportsbooks.sort();
 
 
 
-
-
-
 createTopRow(sportsbooks);
-
-asyncFunc(hockeyOptions);
+asyncFunc(nflMoneyLineOptions);

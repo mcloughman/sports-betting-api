@@ -1,53 +1,83 @@
-h1 {
-  text-align: center;
-  color: midnightblue;
-}
-table {
-  width: 800px;
 
-  margin: 50px auto;
+.nav {
+    display: flex;
+    justify-content: center;
+    background-color: palegoldenrod;
+    
+    
+}
+nav>ul>li{
+    margin: 5px 30px;
+    display: inline-block;
+    font-size: 14px;
+    
+}
+a {
+    color: navy;
+
+}
+h1 {
+    text-align: center;
+    color: navy;
+}
+
+
+.table-container {
+    display: flex;
+    width: 98%;
+}
+.table {
+    max-width: 100%;
+    margin: 25px auto;
+  
+    flex-grow: 1;
 }
 td {
-  border: 2px solid gray;
+    border: 1px solid blue;
+    text-align: center;
 }
-thead {
-  margin-bottom: 20px;
-  font-size: 24px;
-}
-.game-row {
-  width: 100%;
-  font-size: 20px;
-
-  margin-bottom: 10px;
-  padding: 10px;
+td span {
+    float: right;
+    padding-right: 4px;
 }
 
+.key {
+    font-size: 12px;
+    text-align: center;
+}
 .game-row:nth-child(odd) {
-  background-color: palegoldenrod;
-}
-.game-row:nth-child(even) {
-  background-color: midnightblue;
-  color: white;
-}
+    background-color: palegoldenrod;
+  }
+  .game-row:nth-child(even) {
+    background-color: midnightblue;
+    color: white;
+  }
+  
+ .top :first-child {
+    float:right;
+    padding-right: 1px;
+ }
 
-.cell {
-  position: relative;
-}
-.span {
-  float: right;
-  padding-right: 30%;
-}
-.top {
-  text-align: center;
-}
+ @media (min-width: 700px) {
+    .table-container {
+        margin: 20px auto;
+        max-width: 850px;
+    }
+    td span {
+        display: inline-block;
+        padding-right: 20px;
+        text-align: center;
+    }
+    .top :first-child{
+       padding-right: 20px;
+    }
 
-nav {
-  display: flex;
-  justify-content: center;
-  background-color: palegoldenrod;
-}
-li {
-  display: inline;
-  margin: 30px;
-  font-size: 1.2rem;
-}
+    thead, tbody, a {
+        font-size: 20px;
+    }
+    .key {
+        font-size: 16px;
+    }
+ }
+    
+ 
